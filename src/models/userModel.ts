@@ -5,7 +5,7 @@ const usersSchema = new Schema({
         type: String,
         unique: true
     },
-    password: {
+    hashPassword: {
         type: String
     },
     skills: {
@@ -14,9 +14,9 @@ const usersSchema = new Schema({
     githubLink: {
         type: String
     },
-    teams: {
+    joinTeam: {
         type: Schema.Types.ObjectId,
-        ref: 'teams'
+        ref: 'joinTeam'
     }
 })
 

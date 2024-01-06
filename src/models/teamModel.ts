@@ -19,7 +19,14 @@ const teamsSchema = new Schema({
     },
     description: {
         type: String
-    }
+    },
+    githubLink: {
+        type: String
+    },
+    teamMembers: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    },
 })
 
 const teamsModel = model("teams", teamsSchema)
