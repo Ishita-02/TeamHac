@@ -11,27 +11,22 @@ const SECRET = 'SECr3t';
 
 // Define mongoose schemas
 const userSchema = new mongoose.Schema({
-  username: {type: String},
+  email: {type: String},
   password: String,
-  purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }]
+  teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'teams' }]
 });
 
-const adminSchema = new mongoose.Schema({
-  username: String,
-  password: String
-});
-
-const courseSchema = new mongoose.Schema({
-  title: String,
+const teamSchema = new mongoose.Schema({
+  hackathonName: String,
+  teamName: String,
   description: String,
-  price: Number,
-  imageLink: String,
+  modeOfHackathon: String,
+  country: String,
   published: Boolean
 });
 
 // Define mongoose models
 const User = mongoose.model('User', userSchema);
-const Admin = mongoose.model('Admin', adminSchema);
 const Course = mongoose.model('Course', courseSchema);
 
 const authenticateJwt = (req, res, next) => {
