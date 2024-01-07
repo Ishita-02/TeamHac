@@ -4,7 +4,7 @@ import { functionReturn } from "../types";
 import bcrypt from 'bcrypt'
 import teamsModel from "../models/teamModel";
 
-export async function signUp({email, password}: {
+export async function signUp({ email, password }: {
     email: string,
     password: string
 }): Promise<functionReturn> {

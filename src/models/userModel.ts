@@ -14,9 +14,9 @@ const usersSchema = new Schema({
     githubLink: {
         type: String
     },
-    joinTeam: {
+    teamId: {
         type: Schema.Types.ObjectId,
-        ref: 'joinTeam'
+        ref: 'teams'
     }
 })
 

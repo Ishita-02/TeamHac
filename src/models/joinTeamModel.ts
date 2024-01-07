@@ -1,7 +1,6 @@
 import {Schema, model} from "mongoose";
 
 const joinTeamSchema = new Schema({
-    
     place: {
         type: String
     },
@@ -13,6 +12,10 @@ const joinTeamSchema = new Schema({
     },
     githubLink: {
         type: String
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
     }
 })
 
