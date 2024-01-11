@@ -1,15 +1,29 @@
 const express = require('express');
 import * as userControllers from '../controllers/userControllers';
 import authenticateJwt from '../middlewares';
+import { z } from "zod";
 
 const app = express();
 const router = app.Router();
 
-router.post('/signup', authenticateJwt, async function (request: { body: { email: string; password: string; }; }, reply: { code: (arg0: number) => { (): any; new(): any; send: { (arg0: { msg: string; }): void; new(): any; }; }; }) {
-    var { email, password } = request.body
-    var data = await userControllers.signUp({ password, email });
-    reply.code(data.code).send({msg: data.msg})
+type signupInput = {
+    email: string,
+    password: string
+}
+//type signupInput = z.infer<typeof signupInput>;
+
+router.post('/signup', authenticateJwt, async function (request: Request, reply: Response) {
+    // const input = signupInput.parse({ email, password }) 
+    // const {input} = request.body
+    // const {email, password} = signupInput
+    // const password = signupInput.shape.password
+    //const {email, signupInput.shape.password}
+   // var { email, password } = request.body
+   // var data = await userControllers.signUp({ email, password });
+   // reply.status(data.code).send({msg: data.msg})
 })
+
+
 
 export default router;
 
