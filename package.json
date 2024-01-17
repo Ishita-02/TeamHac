@@ -7,5 +7,9 @@
     "@sinclair/typebox": "^0.32.8",
     "@types/bcrypt": "^5.0.2",
     "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build": "tsc"
   }
+  
 }
