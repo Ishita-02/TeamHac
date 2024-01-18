@@ -13,6 +13,9 @@ const joinTeamSchema = new Schema({
     githubLink: {
         type: String
     },
+    email: {
+        type: String
+    },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'users'

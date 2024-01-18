@@ -14,14 +14,14 @@ const usersSchema = new Schema({
     githubLink: {
         type: String
     },
-    jointeamId: {
-        type: Schema.Types.ObjectId,
-        ref: 'joinTeam'
-    },
-    createTeamId: {
-        type: Schema.Types.ObjectId,
-        ref: 'teams'
-    }
+    // jointeamId: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'joinTeam'
+    // },
+    // createTeamId: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'teams'
+    // }
 })
 
 const usersModel = model("users", usersSchema)

@@ -14,6 +14,9 @@ const joinTeamSchema = new mongoose_1.Schema({
     githubLink: {
         type: String
     },
+    email: {
+        type: String
+    },
     user: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'users'
