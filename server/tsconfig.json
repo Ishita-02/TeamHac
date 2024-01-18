@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2016",                                 
-    "module": "commonjs",                              
-     "types": ["node","@sinclair/typebox"],                                      
+    "module": "commonjs",                                                                    
      "outDir": "dist",                                  
      "noEmit": false,                                   
     "esModuleInterop": true,                                                 

@@ -1,18 +1,19 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
-const authRoutes = require('./routes/index.ts');
-const cors = require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import authRoutes from './routes/index';
+import cors from 'cors';
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const SECRET = 'SECr3t'; 
+//const SECRET = 'SECr3t'; 
 
 
-app.use('signup', authRoutes)
+app.use('/authRoutes', authRoutes)
 
-
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
+});
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://ishitagrawal0207:lpdNBhlHhN8cuoER@cluster0.hg0xkl5.mongodb.net/courses', { useNewUrlParser: true, useUnifiedTopology: true, dbName: "courses" });
+mongoose.connect('mongodb+srv://ishitagrawal0207:lpdNBhlHhN8cuoER@cluster0.hg0xkl5.mongodb.net/TeamHac', { dbName: "TeamHac" });

@@ -1,15 +1,11 @@
-const express = require('express');
+import express from 'express';
 import * as userControllers from '../controllers/userControllers';
 import authenticateJwt from '../middlewares';
-import { z } from "zod";
+import { signup } from '../controllers/userControllers'; // Import the signup function
 
-const app = express();
-const router = app.Router();
+const router = express.Router();
 
-
-router.post('/signup', userControllers.signUp);
-
-
+router.post('/signup', userControllers.signup); // Use the exported signup function
 
 export default router;
 

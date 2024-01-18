@@ -1,39 +1,36 @@
 import usersModel from "../models/userModel"
-import assert = require("assert")
-import { functionReturn } from "../types";
+import assert from "assert"
 import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken";
 import teamsModel from "../models/teamModel";
+import {Type as T} from '@sinclair/typebox'
+require('dotenv').config();
 
-export async function signUp({ email, password }: {
-    email: string,
-    password: string
-}): Promise<functionReturn> {
+const secret = process.env.SECRET
+module.exports.signup = async (req: typeof signupSchema, res: any, next: any) => {
     try {
+        var { email, password } = req.body;
         var hashPassword = bcrypt.hashSync(password, 10);
-        var user = await usersModel.create({email, hashPassword});
-        assert(user, " Can't add user ");
-        return {
-            msg: "User added",
-            code: 200,
-        }
+        const emailCheck = await usersModel.findOne({ email });
+        if (emailCheck)
+            return res.json({ msg: "Email already used", status: false });
+        var user = await usersModel.create({ email, hashPassword});
+        const token = jwt.sign({ id: user._id, email: user.email, role: 'user' }, secret ?? '', { expiresIn: '1h' });
+        return res.json({ message: 'User created successfully', token });
     } catch(error) {
-        if (error instanceof assert.AssertionError) {
-            return {
-                msg: error.message,
-                code: 401
-            }
-        }
-        return {
-            msg: "Error",
-            code: 500
-        }
+        next()
     }
 }
+
+const signupSchema = T.Object({
+    email: T.String().email().required(),
+    password: T.String().min(8).required()
+})
 
 export async function login({email, password}: {
     email: string,
     password: string
-}): Promise<functionReturn> {
+}) {
     try {
         var user = await usersModel.findOne({ email });
         assert(user, " User not found ");
@@ -75,7 +72,7 @@ export async function createTeam({hackathonName, teamName, modeOfHackathon, plac
     skills: string,
     description: string,
     githubLink: string
-}): Promise<functionReturn> {
+}) {
     try {
         var team = teamsModel.create({ hackathonName, teamName, modeOfHackathon, place, skills, description, githubLink });
         assert( team, " Can't add team ");
@@ -104,7 +101,7 @@ export async function joinTeam({ username, place, skills, description, githubLin
     description: string,
     githubLink: string,
     email: string
-}): Promise<functionReturn> {
+}) {
     try {
         
         return {
@@ -124,3 +121,4 @@ export async function joinTeam({ username, place, skills, description, githubLin
         }
     }
 }
+
