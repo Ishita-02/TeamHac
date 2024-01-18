@@ -2,17 +2,16 @@ import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/userRoutes';
+import authenticateJwt from './middlewares/index';
 import cors from 'cors';
+
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-//const SECRET = 'SECr3t'; 
-
-
 app.use('/', authRoutes)
-app.use('auth', userRoutes)
+app.use('/auth', authenticateJwt, userRoutes)
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');

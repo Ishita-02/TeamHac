@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.joinTeam = exports.createTeam = void 0;
+exports.joinTeamCreate = exports.createTeam = void 0;
 const assert_1 = __importDefault(require("assert"));
 const typebox_1 = require("@sinclair/typebox");
 const teamModel_1 = __importDefault(require("../models/teamModel"));
+const joinTeamModel_1 = __importDefault(require("../models/joinTeamModel"));
 function createTeam(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -48,13 +49,13 @@ const createTeamSchema = typebox_1.Type.Object({
     description: typebox_1.Type.String(),
     githubLink: typebox_1.Type.String()
 });
-function joinTeam({ username, place, skills, description, githubLink, email }) {
+function joinTeamCreate(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            return {
-                msg: "Team added",
-                code: 200,
-            };
+            const { username, place, skills, description, githubLink, email } = req.body;
+            var team = joinTeamModel_1.default.create({ username, place, skills, description, githubLink, email });
+            (0, assert_1.default)(team, " Can't add team ");
+            res.json({ message: 'Team added' });
         }
         catch (error) {
             if (error instanceof assert_1.default.AssertionError) {
@@ -70,4 +71,12 @@ function joinTeam({ username, place, skills, description, githubLink, email }) {
         }
     });
 }
-exports.joinTeam = joinTeam;
+exports.joinTeamCreate = joinTeamCreate;
+const joinTeamCreateSchema = typebox_1.Type.Object({
+    username: typebox_1.Type.String(),
+    place: typebox_1.Type.String(),
+    skills: typebox_1.Type.String(),
+    description: typebox_1.Type.String(),
+    githubLink: typebox_1.Type.String(),
+    email: typebox_1.Type.String()
+});

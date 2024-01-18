@@ -1,10 +1,10 @@
 import express from 'express';
-import authenticateJwt from '../middlewares';
-import { createTeam } from '../controllers/teamControllers';
+import { createTeam, joinTeamCreate } from '../controllers/teamControllers';
 
 const router = express.Router();
 
-router.post('/createTeam', authenticateJwt, createTeam); 
+router.post('/createTeam', createTeam); 
+router.post('/joinTeam', joinTeamCreate);
 
 
 export default router;

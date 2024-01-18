@@ -15,7 +15,11 @@ const usersSchema = new mongoose_1.Schema({
     githubLink: {
         type: String
     },
-    teamId: {
+    jointeamId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'joinTeam'
+    },
+    createTeamId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'teams'
     }

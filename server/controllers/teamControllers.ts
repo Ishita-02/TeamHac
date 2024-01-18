@@ -1,6 +1,7 @@
 import assert from "assert"
 import {Type as T} from '@sinclair/typebox'
 import teamsModel from "../models/teamModel";
+import joinTeamModel from "../models/joinTeamModel";
 
 export async function createTeam( req: typeof createTeamSchema, res: any, next: any) {
     try {
@@ -32,20 +33,12 @@ const createTeamSchema = T.Object({
     githubLink: T.String()
 })
 
-export async function joinTeam({ username, place, skills, description, githubLink, email}: {
-    username: string,
-    place: string,
-    skills: string,
-    description: string,
-    githubLink: string,
-    email: string
-}) {
+export async function joinTeamCreate( req: typeof joinTeamCreateSchema, res: any, next: any) {
     try {
-        
-        return {
-            msg: "Team added",
-            code: 200,
-        }
+        const { username, place, skills, description, githubLink, email } = req.body;
+        var team = joinTeamModel.create({ username, place, skills, description, githubLink, email });
+        assert( team, " Can't add team ");
+        res.json({ message: 'Team added' })
     } catch(error) {
         if (error instanceof assert.AssertionError) {
             return {
@@ -59,3 +52,12 @@ export async function joinTeam({ username, place, skills, description, githubLin
         }
     }
 }
+
+const joinTeamCreateSchema = T.Object({
+    username: T.String(),
+    place: T.String(),
+    skills: T.String(),
+    description: T.String(),
+    githubLink: T.String(),
+    email: T.String()
+})
