@@ -6,8 +6,9 @@ import teamsModel from "../models/teamModel";
 import {Type as T} from '@sinclair/typebox'
 require('dotenv').config();
 
-const secret = process.env.SECRET
-module.exports.signup = async (req: typeof signupSchema, res: any, next: any) => {
+const secret = process.env.SECRET;
+
+export async function signup(req: typeof signupSchema, res: any, next: any) {    
     try {
         var { email, password } = req.body;
         var hashPassword = bcrypt.hashSync(password, 10);
@@ -23,32 +24,21 @@ module.exports.signup = async (req: typeof signupSchema, res: any, next: any) =>
 }
 
 const signupSchema = T.Object({
-    email: T.String().email().required(),
-    password: T.String().min(8).required()
+    email: T.String(),
+    password: T.String()
 })
 
-export async function login({email, password}: {
-    email: string,
-    password: string
-}) {
+export async function login(req: typeof signupSchema, res: any, next: any) {
     try {
+        var { email, password } = req.body;
         var user = await usersModel.findOne({ email });
         assert(user, " User not found ");
         var valid = bcrypt.compareSync(password, user.hashPassword!)
-        if(valid) {
-            return {
-                msg: "Login successful",
-                code: 200,
-                data: {
-                    email: user.email,
-                }
-            }
-        }
-        else {
-            return {
-                msg: "Login failed",
-                code: 401
-            }
+        if (valid) {
+            const token = jwt.sign({ id: user._id, email: user.email, role: 'user'  }, secret ?? '', { expiresIn: '1h' });
+            res.json({ message: 'Logged in successfully', token });
+        } else {
+            res.status(403).json({ message: 'Invalid username or password' });
         }
     } catch(error) {
         if (error instanceof assert.AssertionError) {

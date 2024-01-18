@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.joinTeam = exports.createTeam = exports.login = void 0;
+exports.joinTeam = exports.createTeam = exports.login = exports.signup = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const assert_1 = __importDefault(require("assert"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -21,45 +21,41 @@ const teamModel_1 = __importDefault(require("../models/teamModel"));
 const typebox_1 = require("@sinclair/typebox");
 require('dotenv').config();
 const secret = process.env.SECRET;
-module.exports.signup = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        var { email, password } = req.body;
-        var hashPassword = bcrypt_1.default.hashSync(password, 10);
-        const emailCheck = yield userModel_1.default.findOne({ email });
-        if (emailCheck)
-            return res.json({ msg: "Email already used", status: false });
-        var user = yield userModel_1.default.create({ email, hashPassword });
-        const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email, role: 'user' }, secret !== null && secret !== void 0 ? secret : '', { expiresIn: '1h' });
-        return res.json({ message: 'User created successfully', token });
-    }
-    catch (error) {
-        next();
-    }
-});
-const signupSchema = typebox_1.Type.Object({
-    email: typebox_1.Type.String().email().required(),
-    password: typebox_1.Type.String().min(8).required()
-});
-function login({ email, password }) {
+function signup(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            var { email, password } = req.body;
+            var hashPassword = bcrypt_1.default.hashSync(password, 10);
+            const emailCheck = yield userModel_1.default.findOne({ email });
+            if (emailCheck)
+                return res.json({ msg: "Email already used", status: false });
+            var user = yield userModel_1.default.create({ email, hashPassword });
+            const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email, role: 'user' }, secret !== null && secret !== void 0 ? secret : '', { expiresIn: '1h' });
+            return res.json({ message: 'User created successfully', token });
+        }
+        catch (error) {
+            next();
+        }
+    });
+}
+exports.signup = signup;
+const signupSchema = typebox_1.Type.Object({
+    email: typebox_1.Type.String(),
+    password: typebox_1.Type.String()
+});
+function login(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            var { email, password } = req.body;
             var user = yield userModel_1.default.findOne({ email });
             (0, assert_1.default)(user, " User not found ");
             var valid = bcrypt_1.default.compareSync(password, user.hashPassword);
             if (valid) {
-                return {
-                    msg: "Login successful",
-                    code: 200,
-                    data: {
-                        email: user.email,
-                    }
-                };
+                const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email, role: 'user' }, secret !== null && secret !== void 0 ? secret : '', { expiresIn: '1h' });
+                res.json({ message: 'Logged in successfully', token });
             }
             else {
-                return {
-                    msg: "Login failed",
-                    code: 401
-                };
+                res.status(403).json({ message: 'Invalid username or password' });
             }
         }
         catch (error) {
