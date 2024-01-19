@@ -27,6 +27,10 @@ const teamsSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    requestsToJoin: {
+        type: [Schema.Types.ObjectId],
+        ref: 'users'
+    }
 })
 
 const teamsModel = model("teams", teamsSchema)

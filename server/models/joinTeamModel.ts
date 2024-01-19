@@ -16,9 +16,13 @@ const joinTeamSchema = new Schema({
     email: {
         type: String
     },
-    user: {
+    userId: {
         type: Schema.Types.ObjectId,
         ref: 'users'
+    },
+    inviteRequests: {
+        type: [Schema.Types.ObjectId],
+        ref: 'teams'
     }
 })
 

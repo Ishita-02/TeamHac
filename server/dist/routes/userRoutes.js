@@ -8,4 +8,6 @@ const teamControllers_1 = require("../controllers/teamControllers");
 const router = express_1.default.Router();
 router.post('/createTeam', teamControllers_1.createTeam);
 router.post('/joinTeam', teamControllers_1.joinTeamCreate);
+router.post('/requestToJoin', teamControllers_1.requestToJoin);
+router.post('/invite', teamControllers_1.invite);
 exports.default = router;

@@ -17,9 +17,13 @@ const joinTeamSchema = new mongoose_1.Schema({
     email: {
         type: String
     },
-    user: {
+    userId: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'users'
+    },
+    inviteRequests: {
+        type: [mongoose_1.Schema.Types.ObjectId],
+        ref: 'teams'
     }
 });
 const joinTeamModel = (0, mongoose_1.model)("joinTeam", joinTeamSchema);

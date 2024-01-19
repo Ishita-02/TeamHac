@@ -28,6 +28,10 @@ const teamsSchema = new mongoose_1.Schema({
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'users'
     },
+    requestsToJoin: {
+        type: [mongoose_1.Schema.Types.ObjectId],
+        ref: 'users'
+    }
 });
 const teamsModel = (0, mongoose_1.model)("teams", teamsSchema);
 exports.default = teamsModel;
