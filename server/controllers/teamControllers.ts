@@ -1,5 +1,5 @@
 import assert from "assert"
-import {Type as T} from '@sinclair/typebox'
+import {Type as T} from ''
 import teamsModel from "../models/teamModel";
 import joinTeamModel from "../models/joinTeamModel";
 import { NextFunction } from "express";
@@ -107,11 +107,17 @@ export async function invite(req: typeof inviteSchema, res: any, next: any) {
     try {
         const userId = req.headers["userId"];
         assert(userId, "User not logged in")
-        const usersTeamExist = await teamsModel.exists({ teamMembers: userId });
-        assert(usersTeamExist, " Team does not exist for this user")
+        const usersTeamId = await teamsModel.findById({ teamMembers: userId });
+        assert(usersTeamId, " Team does not exist for this user")
         const { joinTeamId } = req.body;
         const team = await joinTeamModel.exists({ _id: joinTeamId });
         assert(team, "Team does not exist");
+        // // Check whether the user which is invited is already in a team or not
+        // const teamMembers = Array.isArray(usersTeamId?.teamMembers) ? usersTeamId?.teamMembers.map(member => member.toString()) : [];
+        // for(let i = 0; i < teamMembers.length; i++) {
+        //     const user = await teamsModel.exists({ _id: teamMembers[i] });
+        //     assert(!user, "User already in a team")
+        // }
         await joinTeamModel.updateOne({ _id: joinTeamId }, { $push: { inviteRequests: userId } });
         return res.status(200).json({ message: 'Invite sent' });
     }
