@@ -9,12 +9,11 @@ import {  Card,
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export function Signup() {
+export function Login() {
   return (
-    <Card className="w-[400px] h-[450px]">
+    <Card className="w-[400px] h-[350px]">
       <CardHeader>
-        <CardTitle>Signup</CardTitle>
-        <CardDescription>Make a new account</CardDescription>
+        <CardTitle className="gap-y-10">Login</CardTitle>
       </CardHeader>
       <CardContent>
         <form>
@@ -30,15 +29,11 @@ export function Signup() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-1.5">
-        <div className="relative gap-y-50">
-          <CardDescription className="ml-4 absolute bottom-0 left-0">Already have an account?</CardDescription>
-          <Button variant="outline" className="ml-2 absolute bottom-0 left-0">Login</Button>
-        </div>
-        <Button className="w-60">Signup</Button>
+      <CardFooter className="flex justify-between items-center">
+        <Button className="place-items-center w-300">Login</Button>
       </CardFooter>
     </Card>
   )
 }
 
-export default Signup
+export default Login
