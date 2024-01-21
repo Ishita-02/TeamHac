@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 
 export function Signup() {
   return (
-    <Card className="w-[400px] h-[450px]">
+    <Card className="w-[400px] h-[450px] items-center">
       <CardHeader>
         <CardTitle>Signup</CardTitle>
         <CardDescription>Make a new account</CardDescription>
@@ -31,11 +31,11 @@ export function Signup() {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col space-y-1.5">
-        <div className="relative gap-y-50">
-          <CardDescription className="ml-4 absolute bottom-0 left-0">Already have an account?</CardDescription>
-          <Button variant="outline" className="ml-2 absolute bottom-0 left-0">Login</Button>
-        </div>
         <Button className="w-60">Signup</Button>
+        <div className="relative bottom-0 left-0">
+          <CardDescription className="ml-4 p-10">Already have an account?</CardDescription>
+          <Button variant="outline" className="ml-2 mu-5">Login</Button>
+        </div>
       </CardFooter>
     </Card>
   )

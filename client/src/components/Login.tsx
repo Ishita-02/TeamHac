@@ -29,8 +29,8 @@ export function Login() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between items-center">
-        <Button className="place-items-center w-300">Login</Button>
+      <CardFooter className="justify-center">
+        <Button className="place-items-center w-1/2">Login</Button>
       </CardFooter>
     </Card>
   )
