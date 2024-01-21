@@ -9,9 +9,12 @@ import {  Card,
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+
 export function Signup() {
+
   return (
-    <Card className="w-[400px] h-[450px] items-center">
+    <div className="flex justify-center items-center h-screen ">
+      <Card className="w-[400px] h-[450px]  justify-center">
       <CardHeader>
         <CardTitle>Signup</CardTitle>
         <CardDescription>Make a new account</CardDescription>
@@ -34,10 +37,11 @@ export function Signup() {
         <Button className="w-60">Signup</Button>
         <div className="relative bottom-0 left-0">
           <CardDescription className="ml-4 p-10">Already have an account?</CardDescription>
-          <Button variant="outline" className="ml-2 mu-5">Login</Button>
+          <Button variant="outline" className="ml-2">Login</Button>
         </div>
       </CardFooter>
     </Card>
+    </div>
   )
 }
 

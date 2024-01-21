@@ -1,8 +1,7 @@
 import assert from "assert"
-import {Type as T} from ''
+import {Type as T} from '@sinclair/typebox'
 import teamsModel from "../models/teamModel";
 import joinTeamModel from "../models/joinTeamModel";
-import { NextFunction } from "express";
 
 export async function createTeam( req: typeof createTeamSchema, res: any, next: any) {
     try {
