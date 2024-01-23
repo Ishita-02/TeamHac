@@ -23,12 +23,12 @@ export function Signup() {
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Email</Label>
-              <Input id="name" placeholder="Enter your Email" />
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" placeholder="Enter your Email" />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Password</Label>
-              <Input id="name" placeholder="Enter your Password" />
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" placeholder="Enter your Password" />
             </div>
           </div>
         </form>
