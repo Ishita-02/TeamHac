@@ -138,3 +138,29 @@ const inviteSchema = T.Object({
     joinTeamId: T.String(),
     userId: T.String()
 })
+
+export async function getTeams(req: any, res: any, next: any) {
+    try {
+        const teams = await teamsModel.find();
+        return res.status(200).json({ teams: teams });
+    }
+    catch (error) {
+        return res.status(500).json({
+            msg: "Error",
+            code: 500
+        });
+    }
+}
+
+export async function getJoinTeams(req: any, res: any, next: any) {
+    try {
+        const teams = await joinTeamModel.find();
+        return res.status(200).json({ teams: teams });
+    }
+    catch (error) {
+        return res.status(500).json({
+            msg: "Error",
+            code: 500
+        });
+    }
+}
