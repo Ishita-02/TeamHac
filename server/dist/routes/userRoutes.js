@@ -10,4 +10,6 @@ router.post('/createTeam', teamControllers_1.createTeam);
 router.post('/joinTeam', teamControllers_1.joinTeamCreate);
 router.post('/requestToJoin', teamControllers_1.requestToJoin);
 router.post('/invite', teamControllers_1.invite);
+router.get('/getTeams', teamControllers_1.getTeams);
+router.get('/getJoinTeams', teamControllers_1.getJoinTeams);
 exports.default = router;

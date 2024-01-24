@@ -1,14 +1,29 @@
+import React, { useState } from 'react'
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom';
+
 export function Signup() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/signup', formData);
+      console.log('Signup successful', response.data);  
+      navigate('/login');
+    } catch (error) {
+      alert('Signup failed!')
+      console.error('Signup failed', error);
+    }
+  }
+
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -22,7 +37,7 @@ export function Signup() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -71,9 +86,9 @@ export function Signup() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

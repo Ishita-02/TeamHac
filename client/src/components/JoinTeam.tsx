@@ -23,9 +23,11 @@ export default function JoinTeam() {
       <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
-            <label htmlFor="name" className="block text-sm font-semibold leading-6 text-gray-900">
-              Name
-            </label>
+          <div className="flex items-center justify-between">
+              <label htmlFor="name" className="block text-sm font-semibold leading-6 text-gray-900">
+                Name
+              </label>
+            </div>
             <div className="mt-2.5">
               <input
                 type="text"
@@ -37,9 +39,11 @@ export default function JoinTeam() {
             </div>
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
-              Email
-            </label>
+          <div className="flex items-center justify-between">
+              <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
+                Email
+              </label>
+            </div>
             <div className="mt-2.5">
               <input
                 type="email"
@@ -50,9 +54,11 @@ export default function JoinTeam() {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="githubLink" className="block text-sm font-semibold leading-6 text-gray-900">
-              Github Link
-            </label>
+          <div className="flex items-center justify-between">
+              <label htmlFor="githubLink" className="block text-sm font-semibold leading-6 text-gray-900">
+                Github Link
+              </label>
+            </div>
             <div className="mt-2.5">
               <input
                 type="url"
@@ -63,9 +69,11 @@ export default function JoinTeam() {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="skill" className="block text-sm font-semibold leading-6 text-gray-900">
-              Skills
-            </label>
+          <div className="flex items-center justify-between">
+              <label htmlFor="skill" className="block text-sm font-semibold leading-6 text-gray-900">
+                Skills
+              </label>
+            </div>
             <div className="mt-2.5">
               <input
                 type="text"
@@ -77,9 +85,11 @@ export default function JoinTeam() {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="place" className="block text-sm font-semibold leading-6 text-gray-900">
-              Place
-            </label>
+            <div className="flex items-center justify-between">
+              <label htmlFor="place" className="block text-sm font-semibold leading-6 text-gray-900">
+                Place
+              </label>
+            </div>
             <div className="mt-2.5">
               <input
                 name="place"
@@ -91,9 +101,11 @@ export default function JoinTeam() {
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="description" className="block text-sm font-semibold leading-6 text-gray-900">
+          <div className="flex items-center justify-between">
+              <label htmlFor="description" className="block text-sm font-semibold leading-6 text-gray-900">
               Description
-            </label>
+              </label>
+            </div>
             <div className="mt-2.5">
               <textarea
                 name="description"

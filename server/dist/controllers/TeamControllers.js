@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.invite = exports.requestToJoin = exports.joinTeamCreate = exports.createTeam = void 0;
+exports.getJoinTeams = exports.getTeams = exports.invite = exports.requestToJoin = exports.joinTeamCreate = exports.createTeam = void 0;
 const assert_1 = __importDefault(require("assert"));
 const typebox_1 = require("@sinclair/typebox");
 const teamModel_1 = __importDefault(require("../models/teamModel"));
@@ -125,11 +125,17 @@ function invite(req, res, next) {
         try {
             const userId = req.headers["userId"];
             (0, assert_1.default)(userId, "User not logged in");
-            const usersTeamExist = yield teamModel_1.default.exists({ teamMembers: userId });
-            (0, assert_1.default)(usersTeamExist, " Team does not exist for this user");
+            const usersTeamId = yield teamModel_1.default.findById({ teamMembers: userId });
+            (0, assert_1.default)(usersTeamId, " Team does not exist for this user");
             const { joinTeamId } = req.body;
             const team = yield joinTeamModel_1.default.exists({ _id: joinTeamId });
             (0, assert_1.default)(team, "Team does not exist");
+            // // Check whether the user which is invited is already in a team or not
+            // const teamMembers = Array.isArray(usersTeamId?.teamMembers) ? usersTeamId?.teamMembers.map(member => member.toString()) : [];
+            // for(let i = 0; i < teamMembers.length; i++) {
+            //     const user = await teamsModel.exists({ _id: teamMembers[i] });
+            //     assert(!user, "User already in a team")
+            // }
             yield joinTeamModel_1.default.updateOne({ _id: joinTeamId }, { $push: { inviteRequests: userId } });
             return res.status(200).json({ message: 'Invite sent' });
         }
@@ -152,3 +158,33 @@ const inviteSchema = typebox_1.Type.Object({
     joinTeamId: typebox_1.Type.String(),
     userId: typebox_1.Type.String()
 });
+function getTeams(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const teams = yield teamModel_1.default.find();
+            return res.status(200).json({ teams: teams });
+        }
+        catch (error) {
+            return res.status(500).json({
+                msg: "Error",
+                code: 500
+            });
+        }
+    });
+}
+exports.getTeams = getTeams;
+function getJoinTeams(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const teams = yield joinTeamModel_1.default.find();
+            return res.status(200).json({ teams: teams });
+        }
+        catch (error) {
+            return res.status(500).json({
+                msg: "Error",
+                code: 500
+            });
+        }
+    });
+}
+exports.getJoinTeams = getJoinTeams;
