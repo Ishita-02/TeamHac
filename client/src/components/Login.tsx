@@ -1,14 +1,38 @@
+import React, { useState } from 'react';
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom';
+
 export function Login() {
+
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/login', formData);
+      console.log('Login successful', response.data);  
+      localStorage.setItem('token', response.data.token);
+      navigate('/');
+    } catch (error) {
+      alert('Login failed!')
+      console.error('Login failed', error);
+    }
+  }
+
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -22,7 +46,7 @@ export function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -36,6 +60,8 @@ export function Login() {
                   type="email"
                   autoComplete="email"
                   required
+                  value={formData.email}
+                  onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -54,6 +80,8 @@ export function Login() {
                   type="password"
                   autoComplete="current-password"
                   required
+                  value={formData.password}
+                  onChange={handleChange}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
