@@ -1,4 +1,51 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function JoinTeam() {
+
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    place: '',
+    githubLink: '',
+    skills: '',
+    description: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleChangeDesc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      description: e.target.value,
+    }));
+  };
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/auth/joinTeam', formData,{
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+        
+      });
+      console.log('Join team created successfully', response.data);  
+      navigate('/');
+    } catch (error) {
+      alert('Failed!')
+      console.error('Failed', error);
+    }
+  }
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -20,7 +67,7 @@ export default function JoinTeam() {
           Fill the details below.
         </p>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
           <div className="flex items-center justify-between">
@@ -34,6 +81,8 @@ export default function JoinTeam() {
                 name="name"
                 id="name"
                 autoComplete="given-name"
+                value={formData.name}
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -49,6 +98,8 @@ export default function JoinTeam() {
                 type="email"
                 name="email"
                 id="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -64,6 +115,8 @@ export default function JoinTeam() {
                 type="url"
                 name="githubLink"
                 id="githubLink"
+                value={formData.githubLink}
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -77,9 +130,11 @@ export default function JoinTeam() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="skill"
-                id="skill"
-                autoComplete="email"
+                name="skills"
+                id="skills"
+                autoComplete="skills"
+                value={formData.skills}
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -95,6 +150,8 @@ export default function JoinTeam() {
                 name="place"
                 id="place"
                 type="text"
+                value={formData.place}
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 
               />
@@ -111,8 +168,10 @@ export default function JoinTeam() {
                 name="description"
                 id="message"
                 rows={4}
+                value={formData.description}
+                onChange={handleChangeDesc}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={''}
+                
               />
             </div>
           </div>
