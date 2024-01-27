@@ -40,6 +40,7 @@ export async function joinTeamCreate( req: typeof joinTeamCreateSchema, res: any
         const userId = req.headers["userId"];
         assert(userId, "User does not exists")
         const { username, place, skills, description, githubLink, email } = req.body;
+        console.log(username)
         const emailCheck = await joinTeamModel.exists({ email: email });
         if (emailCheck) {
             return res.status(400).json({ message: 'Email already exists' });

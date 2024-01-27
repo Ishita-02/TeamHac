@@ -1,6 +1,9 @@
 import {Schema, model} from "mongoose";
 
 const joinTeamSchema = new Schema({
+    username: {
+        type: String
+    },
     place: {
         type: String
     },

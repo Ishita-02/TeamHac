@@ -8,6 +8,7 @@ import { CreateTeam } from './components/CreateTeam';
 import JoinTeam from './components/JoinTeam';
 import GetTeams from './components/GetTeams';
 import Navbar from './components/Navbar';
+import GetJoinTeams from './components/GetJoinTeam';
 // import Navbar from './components/Navbar';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path='/createteam' element={<CreateTeam />} />
             <Route path='/jointeam' element={<JoinTeam />} />
             <Route path='/viewteams' element={<GetTeams />} />
+            <Route path='/invites' element={<GetJoinTeams />} />
           </Routes>
         </Router>
       </ThemeProvider>

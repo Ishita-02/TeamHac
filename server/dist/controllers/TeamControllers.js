@@ -57,6 +57,7 @@ function joinTeamCreate(req, res, next) {
             const userId = req.headers["userId"];
             (0, assert_1.default)(userId, "User does not exists");
             const { username, place, skills, description, githubLink, email } = req.body;
+            console.log(username);
             const emailCheck = yield joinTeamModel_1.default.exists({ email: email });
             if (emailCheck) {
                 return res.status(400).json({ message: 'Email already exists' });
