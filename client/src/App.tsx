@@ -6,13 +6,15 @@ import Login from './components/Login'
 import About from './components/About'
 import { CreateTeam } from './components/CreateTeam';
 import JoinTeam from './components/JoinTeam';
+import GetTeams from './components/GetTeams';
+import Navbar from './components/Navbar';
 // import Navbar from './components/Navbar';
 
 function App() {
   
   return (
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        
+        <Navbar />
         <Router>
           <Routes>
             <Route path='/' element={<About />} />
@@ -20,6 +22,7 @@ function App() {
             <Route path='/signup' element={<Signup />} />
             <Route path='/createteam' element={<CreateTeam />} />
             <Route path='/jointeam' element={<JoinTeam />} />
+            <Route path='/viewteams' element={<GetTeams />} />
           </Routes>
         </Router>
       </ThemeProvider>
