@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 
 export function Login() {
-
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -24,6 +24,7 @@ export function Login() {
       const response = await axios.post('http://localhost:3000/login', formData);
       console.log('Login successful', response.data);  
       localStorage.setItem('token', response.data.token);
+      setLoggedIn(true);
       navigate('/');
     } catch (error) {
       alert('Login failed!')
@@ -99,9 +100,9 @@ export function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Don't have an account?{' '}
-            <Link to="signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a href="signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Signup
-            </Link>
+            </a>
           </p>
         </div>
       </div>

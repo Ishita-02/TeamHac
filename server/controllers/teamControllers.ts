@@ -7,8 +7,12 @@ export async function createTeam( req: typeof createTeamSchema, res: any, next: 
     try {
         const userId = req.headers["userId"];
         assert(userId, "User does not exists")
-        const { hackathonName, teamName, modeOfHackathon, place, skills, description, githubLink } = req.body;
-        var team = teamsModel.create({ hackathonName, teamName, modeOfHackathon, place, skills, description, githubLink, teamMembers: userId });
+        const { hackathonName, teamName, email, modeOfHackathon, place, skills, description, githubLink } = req.body;
+        const emailCheck = await teamsModel.exists({ email: email });
+        if (emailCheck) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+        var team = teamsModel.create({ hackathonName, teamName, email, modeOfHackathon, place, skills, description, githubLink, teamMembers: userId });
         assert( team, " Can't add team ");
         res.json({ message: 'Team added' })
     } catch(error) {
@@ -28,6 +32,7 @@ export async function createTeam( req: typeof createTeamSchema, res: any, next: 
 const createTeamSchema = T.Object({
     hackathonName: T.String(),
     teamName: T.String(),
+    email: T.String(),
     modeOfHackathon: T.String(),
     place: T.String(),
     skills: T.String(),
@@ -40,7 +45,6 @@ export async function joinTeamCreate( req: typeof joinTeamCreateSchema, res: any
         const userId = req.headers["userId"];
         assert(userId, "User does not exists")
         const { username, place, skills, description, githubLink, email } = req.body;
-        console.log(username)
         const emailCheck = await joinTeamModel.exists({ email: email });
         if (emailCheck) {
             return res.status(400).json({ message: 'Email already exists' });

@@ -78,8 +78,10 @@ export default function GetJoinTeams() {
                   Invite
                 </button>
               </Card>
+            
             ))}
           </div>
         </div>
+        
       );
 }

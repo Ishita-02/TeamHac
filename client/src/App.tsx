@@ -9,13 +9,14 @@ import JoinTeam from './components/JoinTeam';
 import GetTeams from './components/GetTeams';
 import Navbar from './components/Navbar';
 import GetJoinTeams from './components/GetJoinTeam';
+import { useState } from 'react';
 // import Navbar from './components/Navbar';
 
 function App() {
-  
+  const [isLoggedIn, setLoggedIn] = useState(false);
   return (
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn}/>
         <Router>
           <Routes>
             <Route path='/' element={<About />} />

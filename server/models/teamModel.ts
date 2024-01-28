@@ -7,6 +7,9 @@ const teamsSchema = new Schema({
     teamName: {
         type: String
     },
+    email: {
+        type: String
+    },
     modeOfHackathon: {
         type: String,
         enum: ['Online', 'Offline', 'Both']
