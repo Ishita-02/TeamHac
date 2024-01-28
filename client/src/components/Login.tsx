@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -31,6 +31,7 @@ export function Login() {
       console.error('Login failed', error);
     }
   }
+
 
   return (
     <>

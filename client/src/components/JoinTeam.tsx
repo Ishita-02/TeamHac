@@ -47,6 +47,10 @@ export default function JoinTeam() {
     }
   }
 
+  const handleSendEmail = (email: string) => {
+    window.location.href = `mailto:${email}?subject=Your%20Subject&body=Your%20email%20template%20goes%20here`;
+  };
+
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div
@@ -180,7 +184,7 @@ export default function JoinTeam() {
           <button
             type="submit"
             className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
+            onClick={() =>  handleSendEmail(formData.email)}>
             Submit
           </button>
         </div>

@@ -14,6 +14,12 @@ import { useState } from 'react';
 
 function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); 
+    setLoggedIn(false);
+  };
+
   return (
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Navbar isLoggedIn={isLoggedIn}/>
