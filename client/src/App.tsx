@@ -13,16 +13,10 @@ import { useState } from 'react';
 // import Navbar from './components/Navbar';
 
 const App: React.FC = () => {
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token'); 
-    setLoggedIn(false);
-  };
 
   return (
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+        <Navbar/>
         <Router>
           <Routes>
             <Route path='/' element={<About />} />

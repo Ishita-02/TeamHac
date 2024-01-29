@@ -8,6 +8,9 @@ const teamsSchema = new mongoose_1.Schema({
     teamName: {
         type: String
     },
+    email: {
+        type: String
+    },
     modeOfHackathon: {
         type: String,
         enum: ['Online', 'Offline', 'Both']

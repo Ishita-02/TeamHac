@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.joinTeam = exports.createTeam = exports.login = exports.signup = void 0;
+exports.me = exports.joinTeam = exports.createTeam = exports.login = exports.signup = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const assert_1 = __importDefault(require("assert"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -121,3 +121,18 @@ function joinTeam({ username, place, skills, description, githubLink, email }) {
     });
 }
 exports.joinTeam = joinTeam;
+function me(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const userId = req.headers["userId"];
+            var user = yield userModel_1.default.findById(userId);
+            (0, assert_1.default)(user, " User not found ");
+            var email = user.email;
+            res.json({ email });
+        }
+        catch (error) {
+            next();
+        }
+    });
+}
+exports.me = me;

@@ -1,7 +1,8 @@
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Dialog } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const navigation = [
   { name: 'Create Team', href: '/createteam'},
@@ -10,18 +11,30 @@ const navigation = [
   { name: 'Invite', href: 'invites' },
 ]
 
-interface NavbarProps {
-  isLoggedIn: boolean;
-  handleLogout: () => void;
-}
-
-export function Navbar({ isLoggedIn, handleLogout }: NavbarProps) {
+export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [email, setEmail] = useState(null)
 
-  return (
-        <div className="py-6">
-          {isLoggedIn ? (
-            <header className="absolute inset-x-0 top-0 z-50">
+  useEffect(() => {
+    const getEmail = async () => {
+      const response = await axios.get('http://localhost:3000/auth/me', {
+          headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+      });
+      setEmail(response.data.email);
+    };
+    getEmail();
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); 
+  };
+
+  if(email) {
+    return (
+      <div className="py-6">
+          <header className="absolute inset-x-0 top-0 z-50">
             <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
               <div className="flex lg:flex-1">
                 <a href="#" className="-m-1.5 p-1.5">
@@ -50,13 +63,11 @@ export function Navbar({ isLoggedIn, handleLogout }: NavbarProps) {
                   </a>
                 ))}
               </div>
-              <a
-                href="/"
-                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                onClick={handleLogout}
-              >
-                Log out  <span aria-hidden="true">&rarr;</span>
-              </a>
+              <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                <a href="/" className="text-sm font-semibold leading-6 text-gray-900" onClick={handleLogout}>
+                  Log out <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
             </nav>
             <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
               <div className="fixed inset-0 z-50" />
@@ -93,20 +104,24 @@ export function Navbar({ isLoggedIn, handleLogout }: NavbarProps) {
                       ))}
                     </div>
                     </div>
-                    <a
-                      href="/"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      onClick={handleLogout}
-                    >
-                      Log out  <span aria-hidden="true">&rarr;</span>
-                    </a>
+                    <div className="py-6">
+                      <a
+                        href="/"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={handleLogout}
+                      >
+                        Log out
+                      </a>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Dialog>
           </header>
-            
-          ) : (
-            // If user is not logged in, render the login link
+      </div>
+    )
+  }
+  return (
+        <div className="py-6">
             <header className="absolute inset-x-0 top-0 z-50">
             <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
               <div className="flex lg:flex-1">
@@ -188,10 +203,7 @@ export function Navbar({ isLoggedIn, handleLogout }: NavbarProps) {
               </Dialog.Panel>
             </Dialog>
           </header>
-            
-          )}
-      </div>
-          
+      </div>   
   )
 }
 

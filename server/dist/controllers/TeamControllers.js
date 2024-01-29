@@ -22,8 +22,12 @@ function createTeam(req, res, next) {
         try {
             const userId = req.headers["userId"];
             (0, assert_1.default)(userId, "User does not exists");
-            const { hackathonName, teamName, modeOfHackathon, place, skills, description, githubLink } = req.body;
-            var team = teamModel_1.default.create({ hackathonName, teamName, modeOfHackathon, place, skills, description, githubLink, teamMembers: userId });
+            const { hackathonName, teamName, email, modeOfHackathon, place, skills, description, githubLink } = req.body;
+            const emailCheck = yield teamModel_1.default.exists({ email: email });
+            if (emailCheck) {
+                return res.status(400).json({ message: 'Email already exists' });
+            }
+            var team = teamModel_1.default.create({ hackathonName, teamName, email, modeOfHackathon, place, skills, description, githubLink, teamMembers: userId });
             (0, assert_1.default)(team, " Can't add team ");
             res.json({ message: 'Team added' });
         }
@@ -45,6 +49,7 @@ exports.createTeam = createTeam;
 const createTeamSchema = typebox_1.Type.Object({
     hackathonName: typebox_1.Type.String(),
     teamName: typebox_1.Type.String(),
+    email: typebox_1.Type.String(),
     modeOfHackathon: typebox_1.Type.String(),
     place: typebox_1.Type.String(),
     skills: typebox_1.Type.String(),
@@ -57,7 +62,6 @@ function joinTeamCreate(req, res, next) {
             const userId = req.headers["userId"];
             (0, assert_1.default)(userId, "User does not exists");
             const { username, place, skills, description, githubLink, email } = req.body;
-            console.log(username);
             const emailCheck = yield joinTeamModel_1.default.exists({ email: email });
             if (emailCheck) {
                 return res.status(400).json({ message: 'Email already exists' });
