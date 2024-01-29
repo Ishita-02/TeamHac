@@ -14,6 +14,7 @@ const navigation = [
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [email, setEmail] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const getEmail = async () => {
@@ -23,6 +24,7 @@ export function Navbar() {
           }
       });
       setEmail(response.data.email);
+      setIsLoading(false);
     };
     getEmail();
   }, [])
@@ -31,6 +33,11 @@ export function Navbar() {
     localStorage.removeItem('token'); 
   };
 
+  if(isLoading) {
+    return <div>
+     
+    </div>
+  }
   if(email) {
     return (
       <div className="py-6">
