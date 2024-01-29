@@ -35,7 +35,7 @@ export async function login(req: typeof signupSchema, res: any, next: any) {
         assert(user, " User not found ");
         var valid = bcrypt.compareSync(password, user.hashPassword!)
         if (valid) {
-            const token = jwt.sign({ id: user._id, email: user.email, role: 'user'  }, secret ?? '', { expiresIn: '1h' });
+            const token = jwt.sign({ id: user._id, email: user.email, role: 'user'  }, secret ?? '', { expiresIn: '7d' });
             res.json({ message: 'Logged in successfully', token });
         } else {
             res.status(403).json({ message: 'Invalid username or password' });
@@ -120,6 +120,7 @@ export async function me(req: any, res: any, next: any) {
         var email = user.email;
         res.json({ email });
     } catch(error) {
+        console.error("Error in me function:", error);
         next()
     }
 }

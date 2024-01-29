@@ -61,8 +61,8 @@ export default function GetJoinTeams() {
                       alt="location"
                       className="w-5 h-5 mt-7 absolute right-0 mr-20"
                     />
-                    <h1 className="text-gray-400 font absolute right-0 mr-5 mt-6">{team.place}</h1>
-                  <p className="absolute left-5 mt-20 pt-2 text-gray-400">{team.description}</p>
+                    <h1 className="text-gray-400 font absolute right-0 mr-3 mt-6">{team.place}</h1>
+                  <p className="absolute left-5 mt-16 pb-1 text-gray-400 text-left mr-3">{team.description}</p>
                 </div>
                 <div className="flex items-center justify-between mt-4 space-x-4"> </div>
                   <div className="absolute bottom-0 right-0 p-2">

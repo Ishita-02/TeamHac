@@ -18,19 +18,31 @@ export function Navbar() {
 
   useEffect(() => {
     const getEmail = async () => {
-      const response = await axios.get('http://localhost:3000/auth/me', {
+      try {
+        const response = await axios.get('http://localhost:3000/auth/me', {
           headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-      });
-      setEmail(response.data.email);
-      setIsLoading(false);
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        setEmail(response.data.email);
+      } catch (error) {
+        // Handle 403 Forbidden error
+        if ((error as any).response && (error as any).response.status === 403) {
+          setEmail(null); // or set a default value
+        } else {
+          console.error('Error fetching email:', error);
+        }
+      } finally {
+        setIsLoading(false);
+      }
     };
+  
     getEmail();
-  }, [])
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token'); 
+    window.location.href = '/login';
   };
 
   if(isLoading) {
@@ -38,7 +50,7 @@ export function Navbar() {
      
     </div>
   }
-  if(email) {
+  if(email || email!==null) {
     return (
       <div className="py-6">
           <header className="absolute inset-x-0 top-0 z-50">
@@ -158,9 +170,14 @@ export function Navbar() {
                   </a>
                 ))}
               </div>
-              <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+              <div className="hidden lg:flex lg:flex-1 lg:justify-end pr-7">
+                <a href="/signup" className="text-sm font-semibold leading-6 text-gray-900">
+                  Sign up <span aria-hidden="true"></span>
+                </a>
+              </div>
+              <div className="hidden lg:flex  lg:justify-end">
                 <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
-                  Log in <span aria-hidden="true">&rarr;</span>
+                  Log in <span aria-hidden="true"></span>
                 </a>
               </div>
             </nav>
@@ -200,6 +217,13 @@ export function Navbar() {
                       ))}
                     </div>
                     </div>
+                    <br></br>
+                    <a
+                      href="login"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Sign up
+                    </a>
                     <a
                       href="login"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
