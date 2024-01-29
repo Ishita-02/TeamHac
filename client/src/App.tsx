@@ -12,8 +12,8 @@ import GetJoinTeams from './components/GetJoinTeam';
 import { useState } from 'react';
 // import Navbar from './components/Navbar';
 
-function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+const App: React.FC = () => {
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token'); 
@@ -22,7 +22,7 @@ function App() {
 
   return (
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Navbar isLoggedIn={isLoggedIn}/>
+        <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Router>
           <Routes>
             <Route path='/' element={<About />} />
