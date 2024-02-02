@@ -3,7 +3,7 @@ import { Dialog } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import logo from  "../assets/logo2.png";
+import logo from  "../assets/logo 3.png";
 
 const navigation = [
   { name: 'Create Team', href: '/createteam'},
@@ -59,12 +59,10 @@ export function Navbar() {
               <div className="flex lg:flex-1">
                 <a href="/" className="-m-1.5 p-1.5">
                   <span className="sr-only">Your Company</span>
-                  <div style={{ backgroundColor: "#f0f0f0" }}>
                     <img
                       className="h-8 w-auto"
                       src={logo}
                     />
-                  </div>
                 </a>
               </div>
               <div className="flex lg:hidden">
@@ -96,11 +94,12 @@ export function Navbar() {
                 <div className="flex items-center justify-between">
                   <a href="/" className="-m-1.5 p-1.5">
                     <span className="sr-only">Your Company</span>
-                    <img
-                      className="h-8 w-auto"
-                      src={logo}
-                      alt=""
-                    />
+                    <div style={{ backgroundColor: "transparent" }}>
+                      <img
+                        className="h-8 w-auto"
+                        src={logo}
+                      />
+                    </div>
                   </a>
                   <button
                     type="button"
@@ -148,11 +147,10 @@ export function Navbar() {
               <div className="flex lg:flex-1">
                 <a href="/" className="-m-1.5 p-1.5">
                   <span className="sr-only">Your Company</span>
-                  <img
-                    className="h-8 w-auto"
-                    src={logo}
-                    alt="/"
-                  />
+                    <img
+                      className="h-8 w-auto"
+                      src={logo}
+                    />
                 </a>
               </div>
               <div className="flex lg:hidden">
@@ -192,7 +190,6 @@ export function Navbar() {
                     <img
                       className="h-8 w-auto"
                       src={logo}
-                      alt="/"
                     />
                   </a>
                   <button
