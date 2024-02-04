@@ -8,7 +8,13 @@ import cors from 'cors';
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+    {
+        origin: ["https://team-hac.vercel.app"],
+        methods: ["GET", "POST"],
+        credentials: true
+    }
+));
 
 app.use('/', authRoutes)
 app.use('/auth', authenticateJwt, userRoutes)
