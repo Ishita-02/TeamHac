@@ -20,7 +20,7 @@ export function Navbar() {
   useEffect(() => {
     const getEmail = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/auth/me', {
+        const response = await axios.get('https://team-hac.vercel.app/auth/me', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
