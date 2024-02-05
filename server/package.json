@@ -39,7 +39,8 @@
   "platform": "linux",
   "engines": {
     "node": "^18.14.0"
-  }
+  },
+  "target_arch": "x64"
   
 
 }
