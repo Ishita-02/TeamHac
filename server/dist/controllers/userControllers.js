@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.me = exports.joinTeam = exports.createTeam = exports.login = exports.signup = void 0;
 const userModel_1 = __importDefault(require("../models/userModel"));
 const assert_1 = __importDefault(require("assert"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const teamModel_1 = __importDefault(require("../models/teamModel"));
 const typebox_1 = require("@sinclair/typebox");
@@ -25,7 +25,7 @@ function signup(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             var { email, password } = req.body;
-            var hashPassword = bcrypt_1.default.hashSync(password, 10);
+            var hashPassword = bcryptjs_1.default.hashSync(password, 10);
             const emailCheck = yield userModel_1.default.findOne({ email });
             if (emailCheck)
                 return res.json({ msg: "Email already used", status: false });
@@ -49,7 +49,7 @@ function login(req, res, next) {
             var { email, password } = req.body;
             var user = yield userModel_1.default.findOne({ email });
             (0, assert_1.default)(user, " User not found ");
-            var valid = bcrypt_1.default.compareSync(password, user.hashPassword);
+            var valid = bcryptjs_1.default.compareSync(password, user.hashPassword);
             if (valid) {
                 const token = jsonwebtoken_1.default.sign({ id: user._id, email: user.email, role: 'user' }, secret !== null && secret !== void 0 ? secret : '', { expiresIn: '7d' });
                 res.json({ message: 'Logged in successfully', token });
