@@ -13,16 +13,17 @@ import { useState } from 'react';
 // import Navbar from './components/Navbar';
 
 const App: React.FC = () => {
-
+  const baseURL = "https://team-hac-backend.vercel.app";
   return (
+    
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Navbar/>
         <Router>
           <Routes>
             <Route path='/' element={<About />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/createteam' element={<CreateTeam />} />
+            <Route path={`${baseURL}/signup`} element={<Signup />} />
+            <Route path={`${baseURL}/createteam`} element={<CreateTeam />} />
             <Route path='/jointeam' element={<JoinTeam />} />
             <Route path='/viewteams' element={<GetTeams />} />
             <Route path='/invites' element={<GetJoinTeams />} />
