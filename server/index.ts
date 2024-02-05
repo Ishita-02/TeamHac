@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors(
     {
-        origin: ["https://team-hac-backend.vercel.app"],
+        origin: ["https://team-hac.vercel.app"],
         methods: ["GET", "POST"],
         credentials: true
     }

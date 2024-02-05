@@ -23,7 +23,7 @@ export default function GetJoinTeams() {
 
     useEffect(() => {
         const getTeams = async () => {
-            const response = await axios.get('http://localhost:3000/auth/getJoinTeams', {
+            const response = await axios.get('https://team-hac-backend.vercel.app/auth/getJoinTeams', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

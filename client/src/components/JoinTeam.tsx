@@ -33,7 +33,7 @@ export default function JoinTeam() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/auth/joinTeam', formData,{
+      const response = await axios.post('https://team-hac-backend.vercel.app/auth/joinTeam', formData,{
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
