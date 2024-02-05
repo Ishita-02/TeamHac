@@ -1,6 +1,6 @@
 import usersModel from "../models/userModel"
 import assert from "assert"
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
 import teamsModel from "../models/teamModel";
 import {Type as T} from '@sinclair/typebox'
