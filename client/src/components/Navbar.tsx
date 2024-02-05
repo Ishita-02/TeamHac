@@ -17,7 +17,7 @@ export function Navbar() {
   const [email, setEmail] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const baseURL = "https://team-hac-backend.vercel.app";
+  const baseURL = "https://team-hac.vercel.app";
 
   useEffect(() => {
     const getEmail = async () => {
