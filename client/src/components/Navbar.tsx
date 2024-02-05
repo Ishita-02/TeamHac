@@ -17,8 +17,6 @@ export function Navbar() {
   const [email, setEmail] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const baseURL = "https://team-hac.vercel.app";
-
   useEffect(() => {
     const getEmail = async () => {
       try {
@@ -173,7 +171,7 @@ export function Navbar() {
                 ))}
               </div>
               <div className="hidden lg:flex lg:flex-1 lg:justify-end pr-7">
-                <a href={`${baseURL}/signup`} className="text-sm font-semibold leading-6 text-gray-900">
+                <a href="/signup" className="text-sm font-semibold leading-6 text-gray-900">
                   Sign up <span aria-hidden="true"></span>
                 </a>
               </div>
@@ -220,7 +218,7 @@ export function Navbar() {
                     </div>
                     <br></br>
                     <a
-                      href={`${baseURL}/signup`}
+                      href="/signup"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                     >
                       Sign up
