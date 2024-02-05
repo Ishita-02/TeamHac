@@ -35,5 +35,11 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/mongoose": "^5.11.97",
     "typescript": "^5.3.3"
+  },
+  "platform": "linux",
+  "engines": {
+    "node": "^18.14.0"
   }
+  
+
 }
