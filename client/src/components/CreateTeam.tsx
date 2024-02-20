@@ -49,7 +49,7 @@ export function CreateTeam() {
       
       });
       console.log('Team created successfully', response.data);  
-      navigate('/');
+      navigate('/viewteams');
     } catch (error) {
       alert('Failed!')
       console.error('Failed', error);

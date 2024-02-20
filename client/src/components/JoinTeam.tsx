@@ -40,7 +40,7 @@ export default function JoinTeam() {
         
       });
       console.log('Join team created successfully', response.data);  
-      navigate('/');
+      navigate('/invites');
     } catch (error) {
       alert('Failed!')
       console.error('Failed', error);

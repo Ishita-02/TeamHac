@@ -26,7 +26,7 @@ export function Login() {
       console.log('Login successful', response.data);  
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
-      navigate('/');
+      window.location.href = '/';
     } catch (error) {
       alert('Login failed!')
       console.error('Login failed', error);
