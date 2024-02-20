@@ -43,7 +43,7 @@ export default function GetJoinTeams() {
 
     return (
         <div className="flex flex-col items-center justify-center mt-4">
-          <h1 className="text-3xl font-bold mb-4 mt-20">Teams</h1>
+          <h1 className="text-3xl font-bold mb-4 mt-20">Get Teammates</h1>
           <div className="flex flex-wrap justify-center gap-4">
             {teams.map((team) => (
               <div key={team._id} className="relative bg-gray-900 text-white w-72 h-72 mx-auto rounded-xl shadow-md overflow-hidden md:max-w-xl m-5 hover:shadow-2xl hover:bg-black transition-all duration-500 ease-in-out">
