@@ -22,7 +22,7 @@ export function Signup() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://team-hac-backend.vercel.app/signup', formData);
+      const response = await axios.post('http://localhost:3000/signup', formData);
       console.log('Signup successful', response.data);  
       localStorage.setItem('token', response.data.token);
       navigate('/login');

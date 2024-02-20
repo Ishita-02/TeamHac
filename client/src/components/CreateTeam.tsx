@@ -42,7 +42,7 @@ export function CreateTeam() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://team-hac-backend.vercel.app/auth/createTeam', formData,{
+      const response = await axios.post(`http://localhost:3000/auth/createTeam`, formData,{
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
