@@ -2,7 +2,6 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 import { Dialog } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import logo from  "../assets/logo 3.png";
 
@@ -21,7 +20,7 @@ export function Navbar() {
   useEffect(() => {
     const getEmail = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/auth/me', {
+        const response = await axios.get('https://team-hac-backend.vercel.app/auth/me', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -171,10 +170,10 @@ export function Navbar() {
                   </a>
                 ))}
               </div>
-              <div className="hidden lg:flex lg:flex-1 lg:justify-end pr-7"> 
-                <Link to = "/signup" className="text-sm font-semibold leading-6 text-gray-900">
+              <div className="hidden lg:flex lg:flex-1 lg:justify-end pr-7">
+                <a href="/signup" className="text-sm font-semibold leading-6 text-gray-900">
                   Sign up <span aria-hidden="true"></span>
-                </Link>
+                </a>
               </div>
               <div className="hidden lg:flex  lg:justify-end">
                 <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">
@@ -218,9 +217,12 @@ export function Navbar() {
                     </div>
                     </div>
                     <br></br>
-                    <Link to = "/signup" className="text-sm font-semibold leading-6 text-gray-900">
-                     Sign up <span aria-hidden="true"></span>
-                    </Link>
+                    <a
+                      href="/signup"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Sign up
+                    </a>
                     <a
                       href="/login"
                       className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

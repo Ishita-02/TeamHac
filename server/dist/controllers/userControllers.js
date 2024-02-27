@@ -125,6 +125,7 @@ function me(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const userId = req.headers["userId"];
+            (0, assert_1.default)(userId, " User not found ");
             var user = yield userModel_1.default.findById(userId);
             (0, assert_1.default)(user, " User not found ");
             var email = user.email;

@@ -22,7 +22,7 @@ export function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/login', formData);
+      const response = await axios.post('https://team-hac-backend.vercel.app/login', formData);
       console.log('Login successful', response.data);  
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);

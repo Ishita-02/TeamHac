@@ -115,6 +115,7 @@ export async function joinTeam({ username, place, skills, description, githubLin
 export async function me(req: any, res: any, next: any) {
     try {
         const userId = req.headers["userId"];
+        assert(userId, " User not found ");
         var user = await usersModel.findById(userId);
         assert(user, " User not found ");
         var email = user.email;
