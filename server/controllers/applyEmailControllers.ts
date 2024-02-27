@@ -3,7 +3,7 @@
 import nodemailer from 'nodemailer'
 import ejs from 'ejs'
 import fs from 'fs/promises'
-import path from 'path' // Import the 'path' module
+import path from 'path' 
 // import getConfig from 'next/config'
 
 export default async function applyEmail(req: typeof applyEmailSchema, res: any) {
