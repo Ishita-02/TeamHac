@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import github_icon from "../assets/github_icon.png";
 import location from  "../assets/location.png";
 import laptop1 from "../assets/laptop1.png";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 
 export default function GetJoinTeams() {
@@ -23,7 +26,7 @@ export default function GetJoinTeams() {
 
     useEffect(() => {
         const getTeams = async () => {
-            const response = await axios.get(`http://localhost:3000/auth/getJoinTeams`, {
+            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/getJoinTeams`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

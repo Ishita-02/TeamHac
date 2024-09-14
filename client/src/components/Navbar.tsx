@@ -4,6 +4,9 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import logo from  "../assets/logo 3.png";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const navigation = [
   { name: 'Create Team', href: '/createteam'},
@@ -20,7 +23,7 @@ export function Navbar() {
   useEffect(() => {
     const getEmail = async () => {
       try {
-        const response = await axios.get('https://team-hac-backend.vercel.app/auth/me', {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/me`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
