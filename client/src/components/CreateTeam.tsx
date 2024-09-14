@@ -1,9 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export function CreateTeam() {
 
@@ -45,7 +42,7 @@ export function CreateTeam() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/createTeam`, formData,{
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/createTeam`, formData,{
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

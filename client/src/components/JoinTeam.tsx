@@ -1,9 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export default function JoinTeam() {
 
@@ -36,7 +33,7 @@ export default function JoinTeam() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/joinTeam`, formData,{
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/joinTeam`, formData,{
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

@@ -2,9 +2,6 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import logo from  "../assets/logo2.png";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 
 export function Signup() {
@@ -25,7 +22,7 @@ export function Signup() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/signup`, formData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/signup`, formData);
       console.log('Signup successful', response.data);  
       localStorage.setItem('token', response.data.token);
       navigate('/login');

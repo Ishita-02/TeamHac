@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import logo from  "../assets/logo2.png";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export function Login() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -25,7 +22,9 @@ export function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, formData);
+      console.log(import.meta.env.VITE_BASE_URL)
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login`, formData);
+      
       console.log('Login successful', response.data);  
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);

@@ -4,9 +4,6 @@ import github_icon from "../assets/github_icon.png";
 import location from  "../assets/location.png";
 import laptop1 from "../assets/laptop1.png";
 import organization from "../assets/organization.png";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export default function GetTeams() {
 
@@ -28,7 +25,7 @@ export default function GetTeams() {
 
     useEffect(() => {
         const getTeams = async () => {
-            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/getTeams`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/getTeams`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

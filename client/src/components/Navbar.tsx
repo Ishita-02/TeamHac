@@ -4,15 +4,12 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import logo from  "../assets/logo 3.png";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const navigation = [
   { name: 'Create Team', href: '/createteam'},
   { name: 'Join Team', href: '/jointeam' },
-  { name: 'View Teams', href: 'viewteams' },
-  { name: 'Invite', href: 'invites' },
+  { name: 'View Teams', href: '/viewteams' },
+  { name: 'Invite', href: '/invites' },
 ]
 
 export function Navbar() {
@@ -21,16 +18,23 @@ export function Navbar() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+
     const getEmail = async () => {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        setIsLoading(false);        
+        return;
+      }
+
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/auth/me`, {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/me`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
         setEmail(response.data.email);
       } catch (error) {
-        // Handle 403 Forbidden error
         if ((error as any).response && (error as any).response.status === 403) {
           setEmail(null); // or set a default value
         } else {
@@ -43,6 +47,10 @@ export function Navbar() {
   
     getEmail();
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token'); 
