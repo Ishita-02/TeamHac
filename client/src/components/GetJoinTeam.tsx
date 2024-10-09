@@ -66,15 +66,13 @@ export default function GetJoinTeams() {
                       alt="skills"
                       className="w-5 h-5 mt-7 absolute left-0 ml-5"
                     />
-                    <h1 className="text-gray-400 font absolute left ml-3 mt-6">{team.skills}</h1>
-                    <div className="absolute right-0 mr-5 mt-5 flex items-center">
-                      <img
-                        src={location}
-                        alt="location"
-                        className="w-5 h-5 mr-2"
-                      />
-                      <h1 className="text-gray-400">{team.place}</h1>
-                    </div>
+                  <h1 className="text-gray-400 font absolute left ml-5 mt-6">{team.skills}</h1>
+                    <img
+                      src={location}
+                      alt="location"
+                      className="w-5 h-5 mt-7 absolute right-0 mr-20"
+                    />
+                    <h1 className="text-gray-400 font absolute right-0 mr-3 mt-6">{team.place}</h1>
                   <p className="absolute left-5 mt-16 pb-1 text-gray-400 text-left mr-3">{team.description}</p>
                 </div>
                 <div className="flex items-center justify-between mt-4 space-x-4"> </div>
