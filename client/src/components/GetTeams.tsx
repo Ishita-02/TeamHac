@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import github_icon from "../assets/github_icon.png";
 import location from  "../assets/location.png";
 import laptop1 from "../assets/laptop1.png";
@@ -22,8 +22,19 @@ export default function GetTeams() {
     type TeamsArray = Teams[];
 
     const [teams, setTeams] = useState<TeamsArray>([]);
+    const isFirstRun = useRef(true);
 
     useEffect(() => {
+      if (isFirstRun.current) {
+        isFirstRun.current = false;
+        return;
+      }
+      const token = localStorage.getItem('token');
+        
+      if (!token) {
+          alert('Please log in to view the teams.');
+          return;
+      }
         const getTeams = async () => {
             const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/getTeams`, {
                 headers: {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import github_icon from "../assets/github_icon.png";
 import location from  "../assets/location.png";
 import laptop1 from "../assets/laptop1.png";
@@ -20,8 +20,19 @@ export default function GetJoinTeams() {
     type TeamsArray = Teams[];
 
     const [teams, setTeams] = useState<TeamsArray>([]);
+    const isFirstRun = useRef(true);
 
     useEffect(() => {
+      if (isFirstRun.current) {
+        isFirstRun.current = false;
+        return;
+      }
+      const token = localStorage.getItem('token');
+        
+      if (!token) {
+          alert('Please login');
+          return;
+      }
         const getTeams = async () => {
             const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/getJoinTeams`, {
                 headers: {
@@ -43,7 +54,7 @@ export default function GetJoinTeams() {
 
     return (
         <div className="flex flex-col items-center justify-center mt-4">
-          <h1 className="text-3xl font-bold mb-4 mt-20">Get Teammates</h1>
+          <h1 className="text-3xl font-bold mb-4 mt-20">Looking for Teammates?</h1>
           <div className="flex flex-wrap justify-center gap-4">
             {teams.map((team) => (
               <div key={team._id} className="relative bg-gray-900 text-white w-72 h-72 mx-auto rounded-xl shadow-md overflow-hidden md:max-w-xl m-5 hover:shadow-2xl hover:bg-black transition-all duration-500 ease-in-out">
@@ -55,13 +66,15 @@ export default function GetJoinTeams() {
                       alt="skills"
                       className="w-5 h-5 mt-7 absolute left-0 ml-5"
                     />
-                    <h1 className="text-gray-400 font absolute left ml-5 mt-6">{team.skills}</h1>
-                    <img
-                      src={location}
-                      alt="location"
-                      className="w-5 h-5 mt-7 absolute right-0 mr-20"
-                    />
-                    <h1 className="text-gray-400 font absolute right-0 mr-3 mt-6">{team.place}</h1>
+                    <h1 className="text-gray-400 font absolute left ml-3 mt-6">{team.skills}</h1>
+                    <div className="absolute right-0 mr-5 mt-5 flex items-center">
+                      <img
+                        src={location}
+                        alt="location"
+                        className="w-5 h-5 mr-2"
+                      />
+                      <h1 className="text-gray-400">{team.place}</h1>
+                    </div>
                   <p className="absolute left-5 mt-16 pb-1 text-gray-400 text-left mr-3">{team.description}</p>
                 </div>
                 <div className="flex items-center justify-between mt-4 space-x-4"> </div>
