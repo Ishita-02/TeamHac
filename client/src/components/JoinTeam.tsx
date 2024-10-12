@@ -32,6 +32,11 @@ export default function JoinTeam() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.username || !formData.email || !formData.place || !formData.githubLink || !formData.skills || !formData.description) {
+      alert('Please fill all the fields');
+      return;
+    }
+
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/joinTeam`, formData,{
         headers: {
@@ -42,7 +47,7 @@ export default function JoinTeam() {
       console.log('Join team created successfully', response.data);  
       navigate('/invites');
     } catch (error) {
-      alert('Failed!')
+      alert('Failed! Please Login')
       console.error('Failed', error);
     }
   }

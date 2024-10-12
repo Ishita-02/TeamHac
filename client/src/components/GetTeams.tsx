@@ -22,6 +22,7 @@ export default function GetTeams() {
     type TeamsArray = Teams[];
 
     const [teams, setTeams] = useState<TeamsArray>([]);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const isFirstRun = useRef(true);
 
     useEffect(() => {
@@ -29,30 +30,41 @@ export default function GetTeams() {
         isFirstRun.current = false;
         return;
       }
+
       const token = localStorage.getItem('token');
-        
+      
+      // Check if user is logged in
       if (!token) {
-          alert('Please log in to view the teams.');
+          setIsLoggedIn(false);
           return;
       }
-        const getTeams = async () => {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/getTeams`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-            setTeams(response.data.teams);
-        };
-        getTeams();
+
+      const getTeams = async () => {
+          const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/getTeams`, {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+          });
+          setTeams(response.data.teams);
+      };
+      getTeams();
     }, []);
 
     const openGithub = (githubLink: string) => {
         window.open(githubLink, '_blank');
       };
 
-      const handleSendEmail = (email: string) => {
+    const handleSendEmail = (email: string) => {
         window.location.href = `mailto:${email}?subject=Your%20Subject&body=Your%20email%20template%20goes%20here`;
-      };
+    };
+
+    if (!isLoggedIn) {
+        return (
+            <div className="flex flex-col items-center justify-center mt-4">
+                <h1 className="text-3xl font-bold mb-4 mt-20">Please log in to view the teams.</h1>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col items-center justify-center mt-4">
