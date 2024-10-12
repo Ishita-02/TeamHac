@@ -27,9 +27,10 @@ export default function GetJoinTeams() {
             isFirstRun.current = false;
             return;
         }
+        console.log("window", window)
     
         const checkToken = () => {
-            const token = localStorage.getItem('token');
+            const token = window.localStorage.getItem('token');
             if (!token) {
                 setIsLoggedIn(false); // Set the state to false if there's no token
                 return;

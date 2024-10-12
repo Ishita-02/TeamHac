@@ -31,7 +31,7 @@ export default function GetTeams() {
         return;
       }
 
-      const token = localStorage.getItem('token');
+      const token = window.localStorage.getItem('token');
       
       // Check if user is logged in
       if (!token) {
