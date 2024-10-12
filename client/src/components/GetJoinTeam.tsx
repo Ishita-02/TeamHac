@@ -27,22 +27,36 @@ export default function GetJoinTeams() {
         isFirstRun.current = false;
         return;
       }
-      const token = localStorage.getItem('token');
-        
-      if (!token) {
+    
+      // Only access localStorage after the component has mounted
+      const checkToken = () => {
+        const token = localStorage.getItem('token');
+        console.log("token", token);
+    
+        if (!token) {
           alert('Please login');
           return;
-      }
+        }
+    
         const getTeams = async () => {
+          try {
             const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/getJoinTeams`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
+              headers: {
+                Authorization: `Bearer ${token}` // use the token we retrieved earlier
+              }
             });
             setTeams(response.data.teams);
+          } catch (error) {
+            console.error("Error fetching teams", error);
+          }
         };
         getTeams();
+      };
+    
+      // Run the token check on the client side
+      checkToken();
     }, []);
+    
 
     const openGithub = (githubLink: string) => {
         window.open(githubLink, '_blank');
@@ -86,7 +100,7 @@ export default function GetJoinTeams() {
                   </div>
                 <button className="absolute bottom-0 left-0 flex w-1/3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 ml-4 mb-4 text-sm font-sem leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={() =>  handleSendEmail(team.email)}>
-                  Apply
+                  Invite
                 </button>
               </div>
             </div>
